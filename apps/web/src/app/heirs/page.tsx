@@ -29,30 +29,30 @@ export default function Heirs() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-black text-white font-sans">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-gold-500">Heir Management</h1>
-          <button 
+          <h1 className="text-3xl sm:text-4xl font-medium text-gold-500 tracking-tight">Heir Management</h1>
+          <button
             onClick={() => setShowAddForm(true)}
-            className="bg-gold-500 text-black px-6 py-3 rounded-lg font-semibold hover:bg-gold-400 transition-all"
+            className="bg-gold-500 text-black px-6 py-3 rounded-md text-sm font-medium tracking-wide hover:bg-gold-400 transition-colors"
           >
             Add Heir
           </button>
         </div>
-        
+
         {/* Heirs Overview */}
-        <div className="bg-black-800 border border-gold-500 p-8 rounded-lg mb-8">
-          <h2 className="text-2xl font-bold text-gold-400 mb-6">Configured Heirs</h2>
-          
+        <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950 mb-8">
+          <h2 className="text-2xl font-medium text-gold-500 tracking-tight mb-6">Configured Heirs</h2>
+
           {heirs.length === 0 ? (
             <div className="text-center py-12">
-              <div className="text-gold-400 text-6xl mb-4">Users</div>
-              <h3 className="text-xl font-semibold text-white mb-2">No Heirs Configured</h3>
-              <p className="text-white-600 mb-6">Add heirs to ensure your Bitcoin can be inherited according to your wishes.</p>
-              <button 
+              <div className="text-gold-500 text-6xl mb-4">Users</div>
+              <h3 className="text-xl font-medium text-white mb-2">No Heirs Configured</h3>
+              <p className="text-neutral-500 mb-6">Add heirs to ensure your Bitcoin can be inherited according to your wishes.</p>
+              <button
                 onClick={() => setShowAddForm(true)}
-                className="bg-gold-500 text-black px-6 py-3 rounded-lg font-semibold hover:bg-gold-400 transition-all"
+                className="bg-gold-500 text-black px-6 py-3 rounded-md text-sm font-medium tracking-wide hover:bg-gold-400 transition-colors"
               >
                 Add Your First Heir
               </button>
@@ -60,31 +60,30 @@ export default function Heirs() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {heirs.map((heir, index) => (
-                <div key={index} className="bg-black-900 border border-black-600 p-6 rounded-lg">
+                <div key={index} className="border border-neutral-800 rounded-lg p-6 bg-neutral-950">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h3 className="text-lg font-semibold text-white">{heir.name}</h3>
-                      <p className="text-white-600">{heir.relationship}</p>
+                      <h3 className="text-lg font-medium text-white">{heir.name}</h3>
+                      <p className="text-neutral-500">{heir.relationship}</p>
                     </div>
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      heir.kycStatus === 'PASSED' 
-                        ? 'bg-green-900 text-green-300' 
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${heir.kycStatus === 'PASSED'
+                        ? 'bg-green-900 text-green-300'
                         : 'bg-yellow-900 text-yellow-300'
-                    }`}>
+                      }`}>
                       {heir.kycStatus}
                     </span>
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-white-600">Email:</span>
+                      <span className="text-neutral-500">Email:</span>
                       <span className="text-white">{heir.email}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-white-600">Phone:</span>
+                      <span className="text-neutral-500">Phone:</span>
                       <span className="text-white">{heir.phone || 'Not provided'}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-white-600">PGP Key:</span>
+                      <span className="text-neutral-500">PGP Key:</span>
                       <span className="text-white">{heir.pgpPublicKey ? 'Configured' : 'Not configured'}</span>
                     </div>
                   </div>
@@ -97,10 +96,10 @@ export default function Heirs() {
         {/* Add Heir Form Modal */}
         {showAddForm && (
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-            <div className="bg-black-800 border border-gold-500 p-8 rounded-lg max-w-2xl w-full">
-              <h2 className="text-2xl font-bold text-gold-400 mb-6">Add New Heir</h2>
-              
-              <AddHeirForm 
+            <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950 max-w-2xl w-full">
+              <h2 className="text-2xl font-medium text-gold-500 tracking-tight mb-6">Add New Heir</h2>
+
+              <AddHeirForm
                 onSubmit={handleAddHeir}
                 onCancel={() => setShowAddForm(false)}
                 loading={loading}
@@ -110,59 +109,59 @@ export default function Heirs() {
         )}
 
         {/* Information Section */}
-        <div className="bg-black-800 border border-gold-500 p-8 rounded-lg">
-          <h2 className="text-2xl font-bold text-gold-400 mb-6">How Inheritance Works</h2>
-          
+        <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950">
+          <h2 className="text-2xl font-medium text-gold-500 tracking-tight mb-6">How Inheritance Works</h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-lg font-semibold text-white mb-4">Setup Process</h3>
-              <div className="space-y-3 text-white-600">
+              <h3 className="text-lg font-medium text-white mb-4">Setup Process</h3>
+              <div className="space-y-3 text-neutral-500">
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">1.</div>
+                  <div className="text-gold-500 font-medium mr-3">1.</div>
                   <p>Add heir details and relationship</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">2.</div>
+                  <div className="text-gold-500 font-medium mr-3">2.</div>
                   <p>Heir provides PGP public key for encryption</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">3.</div>
+                  <div className="text-gold-500 font-medium mr-3">3.</div>
                   <p>Heir completes KYC verification</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">4.</div>
+                  <div className="text-gold-500 font-medium mr-3">4.</div>
                   <p>Legacy package is encrypted and stored</p>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-white mb-4">When Triggered</h3>
-              <div className="space-y-3 text-white-600">
+              <h3 className="text-lg font-medium text-white mb-4">When Triggered</h3>
+              <div className="space-y-3 text-neutral-500">
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">1.</div>
+                  <div className="text-gold-500 font-medium mr-3">1.</div>
                   <p>Dead Man's Switch triggers inheritance</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">2.</div>
+                  <div className="text-gold-500 font-medium mr-3">2.</div>
                   <p>Heir receives encrypted legacy package</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">3.</div>
+                  <div className="text-gold-500 font-medium mr-3">3.</div>
                   <p>Heir completes final KYC verification</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="text-gold-400 font-bold mr-3">4.</div>
+                  <div className="text-gold-500 font-medium mr-3">4.</div>
                   <p>Custos co-signs PSBT for fund transfer</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-black-900 border border-black-600 p-4 rounded-lg mt-6">
-            <p className="text-white-600 text-sm">
-              <span className="text-gold-400 font-semibold">Security:</span> 
-              All legacy packages are encrypted with the heir's PGP public key. Custos never has access to the unencrypted content. 
+          <div className="border border-neutral-800 rounded-lg p-4 bg-neutral-950 mt-6">
+            <p className="text-neutral-500 text-sm">
+              <span className="text-gold-500 font-medium">Security:</span>
+              All legacy packages are encrypted with the heir's PGP public key. Custos never has access to the unencrypted content.
               The HSM key is only released after successful KYC verification.
             </p>
           </div>
@@ -196,51 +195,51 @@ function AddHeirForm({ onSubmit, onCancel, loading }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-white-600 text-sm mb-2">Full Name *</label>
+        <label className="block text-neutral-500 text-sm mb-2">Full Name *</label>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full bg-black-900 border border-black-600 rounded-lg px-4 py-2 text-white focus:border-gold-400 focus:outline-none"
+          className="w-full border border-neutral-800 rounded-lg px-4 py-2 text-white bg-neutral-950 focus:border-gold-500 focus:outline-none"
           placeholder="John Doe"
         />
       </div>
 
       <div>
-        <label className="block text-white-600 text-sm mb-2">Email Address *</label>
+        <label className="block text-neutral-500 text-sm mb-2">Email Address *</label>
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
           required
-          className="w-full bg-black-900 border border-black-600 rounded-lg px-4 py-2 text-white focus:border-gold-400 focus:outline-none"
+          className="w-full border border-neutral-800 rounded-lg px-4 py-2 text-white bg-neutral-950 focus:border-gold-500 focus:outline-none"
           placeholder="heir@example.com"
         />
       </div>
 
       <div>
-        <label className="block text-white-600 text-sm mb-2">Phone Number</label>
+        <label className="block text-neutral-500 text-sm mb-2">Phone Number</label>
         <input
           type="tel"
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          className="w-full bg-black-900 border border-black-600 rounded-lg px-4 py-2 text-white focus:border-gold-400 focus:outline-none"
+          className="w-full border border-neutral-800 rounded-lg px-4 py-2 text-white bg-neutral-950 focus:border-gold-500 focus:outline-none"
           placeholder="+1 555 123 4567"
         />
       </div>
 
       <div>
-        <label className="block text-white-600 text-sm mb-2">Relationship *</label>
+        <label className="block text-neutral-500 text-sm mb-2">Relationship *</label>
         <select
           name="relationship"
           value={formData.relationship}
           onChange={handleChange}
           required
-          className="w-full bg-black-900 border border-black-600 rounded-lg px-4 py-2 text-white focus:border-gold-400 focus:outline-none"
+          className="w-full border border-neutral-800 rounded-lg px-4 py-2 text-white bg-neutral-950 focus:border-gold-500 focus:outline-none"
         >
           <option value="">Select relationship</option>
           <option value="spouse">Spouse</option>
@@ -253,13 +252,13 @@ function AddHeirForm({ onSubmit, onCancel, loading }) {
       </div>
 
       <div>
-        <label className="block text-white-600 text-sm mb-2">PGP Public Key</label>
+        <label className="block text-neutral-500 text-sm mb-2">PGP Public Key</label>
         <textarea
           name="pgpPublicKey"
           value={formData.pgpPublicKey}
           onChange={handleChange}
           rows={4}
-          className="w-full bg-black-900 border border-black-600 rounded-lg px-4 py-2 text-white focus:border-gold-400 focus:outline-none"
+          className="w-full border border-neutral-800 rounded-lg px-4 py-2 text-white bg-neutral-950 focus:border-gold-500 focus:outline-none"
           placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
         />
       </div>
@@ -268,14 +267,14 @@ function AddHeirForm({ onSubmit, onCancel, loading }) {
         <button
           type="submit"
           disabled={loading}
-          className="flex-1 bg-gold-500 text-black px-6 py-3 rounded-lg font-semibold hover:bg-gold-400 transition-all disabled:opacity-50"
+          className="flex-1 bg-gold-500 text-black px-6 py-3 rounded-md text-sm font-medium tracking-wide hover:bg-gold-400 transition-colors disabled:opacity-50"
         >
           {loading ? 'Adding...' : 'Add Heir'}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 border border-gold-500 text-gold-500 px-6 py-3 rounded-lg font-semibold hover:bg-gold-500 hover:text-black transition-all"
+          className="flex-1 border border-gold-500 text-gold-500 px-6 py-3 rounded-md text-sm font-medium tracking-wide hover:bg-gold-500 hover:text-black transition-colors"
         >
           Cancel
         </button>

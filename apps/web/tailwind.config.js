@@ -8,9 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gold: {
-          400: '#d9b85c',
-          500: '#C9A84C',
+        yellow: {
+          300: '#fde047',
+          400: '#facc15',
+          500: '#eab308',
+          900: '#713f12',
         },
       },
     },

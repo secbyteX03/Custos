@@ -25,7 +25,7 @@ export default function WalletConnectModal({ isOpen, onClose, onConnect }: Walle
 
     try {
       const result: ConnectionResult = await walletConnector.connectWallet(walletName, walletType)
-      
+
       if (result.success && result.wallet) {
         onConnect(result.wallet)
         onClose()
@@ -67,11 +67,10 @@ export default function WalletConnectModal({ isOpen, onClose, onConnect }: Walle
               key={wallet.name}
               onClick={() => handleConnect(wallet.name, wallet.type)}
               disabled={isConnecting}
-              className={`w-full text-left px-4 py-3 rounded-md border transition-all ${
-                isConnecting && selectedWallet === wallet.name
-                  ? 'bg-yellow-500 bg-opacity-10 border-yellow-500 text-yellow-500'
-                  : 'bg-neutral-800 border-neutral-700 text-neutral-300 hover:bg-neutral-700 hover:border-neutral-600 hover:text-white'
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              className={`w-full text-left px-4 py-3 rounded-md border transition-all ${isConnecting && selectedWallet === wallet.name
+                ? 'bg-yellow-500 bg-opacity-10 border-yellow-500 text-yellow-500'
+                : 'bg-neutral-800 border-neutral-700 text-neutral-300 hover:bg-neutral-700 hover:border-neutral-600 hover:text-white'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -92,7 +91,7 @@ export default function WalletConnectModal({ isOpen, onClose, onConnect }: Walle
 
         <div className="mt-6 pt-4 border-t border-neutral-800">
           <p className="text-xs text-neutral-500 text-center">
-            Don't have a wallet? 
+            Don't have a wallet?
             <a href="#" className="text-yellow-500 hover:text-yellow-400 ml-1">
               Get started with a software wallet
             </a>

@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: custos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # Bitcoin Core (regtest for local dev)
+  bitcoind:
+    image: lncm/bitcoind:v25.1
+    command: >
+      -regtest -rpcuser=user -rpcpassword=password -rpcallowip=0.0.0.0/0 -rpcbind=0.0.0.0 -txindex=1
+    ports:
+      - "18443:18443"
+      - "18444:18444"
+
+  # LND node (regtest)
+  lnd:
+    image: lightninglabs/lnd:v0.17.4-beta
+    depends_on: [ bitcoind ]
+    ports:
+      - "9735:9735"
+      - "10009:10009"
+    volumes:
+      - lnddata:/root/.lnd
+    command: >
+      --network=regtest --bitcoin.active --bitcoin.regtest --bitcoin.node=bitcoind --bitcoind.rpchost=bitcoind --bitcoind.rpcuser=user --bitcoind.rpcpass=password --bitcoind.zmqpubrawblock=tcp://bitcoind:28332 --bitcoind.zmqpubrawtx=tcp://bitcoind:28333
+
+  backend:
+    build: ./backend
+    depends_on: [ postgres, bitcoind ]
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/custos
+      BITCOIN_NETWORK: regtest
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+volumes:
+  pgdata:
+  lnddata:

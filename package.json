@@ -1,0 +1,19 @@
+{
+  "name": "custos",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "apps/web",
+    "apps/web-concierge",
+    "apps/web-heir",
+    "bitcoin"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:concierge": "npm run dev --workspace=apps/web-concierge",
+    "dev:heir": "npm run dev --workspace=apps/web-heir",
+    "test": "npm run test --workspaces"
+  }
+}

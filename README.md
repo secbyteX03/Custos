@@ -1,5 +1,59 @@
 # Custos — Bitcoin Inheritance & Security Platform
 
+## Introduction
+
+Custos is a comprehensive Bitcoin inheritance and security platform designed to solve one of cryptocurrency's biggest challenges: what happens to your digital assets when you're no longer here to manage them. Our platform ensures your Bitcoin wealth reaches your loved ones automatically, securely, and without compromising the self-custody principles that make Bitcoin valuable.
+
+Built with institutional-grade security and user-friendly interfaces, Custos combines cutting-edge cryptographic techniques with practical inheritance planning to create a seamless bridge between Bitcoin's decentralized nature and traditional estate planning needs.
+
+## The Problem We Solve
+
+### The Silent Crisis of Lost Bitcoin
+
+Every year, an estimated **$10-20 billion worth of Bitcoin** becomes permanently inaccessible due to owner death, disability, or simple loss of private keys. Unlike traditional assets, Bitcoin cannot be recovered through court orders or legal proceedings - once the private keys are lost, the funds are gone forever.
+
+### Why Traditional Solutions Fail
+
+- **Legal Systems Can't Help**: Courts and lawyers cannot access or recover Bitcoin private keys
+- **Estate Planning Gaps**: Traditional wills and trusts don't account for digital asset custody
+- **Security vs. Accessibility Trade-off**: Sharing keys with family creates security risks
+- **Technical Complexity**: Most beneficiaries lack the technical knowledge to manage Bitcoin inheritance
+- **No Recovery Mechanisms**: Bitcoin's design provides no built-in recovery or inheritance features
+
+### The Human Cost
+
+Behind every lost Bitcoin is a family's financial security, a lifetime of savings, or a legacy meant to support future generations. The current system forces Bitcoin holders to choose between:
+1. **Risking total loss** by keeping secrets to themselves
+2. **Compromising security** by sharing sensitive information
+3. **Burdening loved ones** with complex technical challenges during an already difficult time
+
+## Our Solution
+
+Custos addresses these challenges through a sophisticated multi-layered approach:
+
+### **2-of-3 Multisig Security**
+- **Your Hardware Wallet**: You maintain primary control
+- **Web App Key**: Encrypted biometric-secured backup
+- **Institutional HSM**: Professional-grade security released only on verified inheritance
+
+### **Automated Dead Man's Switch**
+- Configurable check-in schedules
+- Grace periods to prevent false triggers
+- Multiple notification channels (email, SMS, push)
+- Heir verification before fund release
+
+### **Professional Inheritance Process**
+- KYC verification for beneficiaries
+- Legal documentation integration
+- Step-by-step guidance for heirs
+- Support for complex family structures
+
+### **Bank-Grade Security**
+- AWS CloudHSM for key storage
+- PGP encryption for all communications
+- Regular security audits
+- Compliance with financial regulations
+
 ## Project Structure
 
 ```

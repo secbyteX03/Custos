@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String    @id @default(uuid())
+  email                 String    @unique
+  passwordHash          String
+  phone                 String?
+  pushToken             String?
+  kycStatus             String    @default("PENDING") // PENDING | PASSED | FAILED
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  vault                 Vault?
+  switch                DeadMansSwitch?
+  heirs                 Heir[]
+  trustedContacts       TrustedContact[]
+  notifications         Notification[]
+}
+
+model Vault {
+  id                    String    @id @default(uuid())
+  userId                String    @unique
+  user                  User      @relation(fields: [userId], references: [id])
+
+  // Multisig config
+  vaultType             String    @default("MULTISIG_2OF3") // MULTISIG_2OF3 | SOCIAL_RECOVERY
+  xpubUser              String?   // User hardware wallet xpub
+  xpubPhone             String?   // Phone key xpub
+  // LG third key stored in HSM — only key ID stored here
+  hsmKeyId              String?
+
+  // PSBT pre-built at onboarding, stored encrypted
+  inheritancePsbtCipher String?
+
+  // Lightning
+  lndNodeUri            String?
+  lndMacaroon           String?   // Encrypted
+
+  status                String    @default("ACTIVE") // ACTIVE | SUSPENDED | TRANSFERRED
+  createdAt             DateTime  @default(now())
+}
+
+model DeadMansSwitch {
+  id                    String    @id @default(uuid())
+  userId                String    @unique
+  user                  User      @relation(fields: [userId], references: [id])
+
+  // Configuration
+  checkInIntervalDays   Int       @default(90)  // e.g. 90 days
+  gracePeriodDays       Int       @default(30)
+  lastCheckinAt         DateTime  @default(now())
+  nextCheckinDue        DateTime
+
+  // State machine
+  state                 String    @default("ACTIVE")
+  // ACTIVE | PENDING_WARNING | GRACE_PERIOD | TRIGGERED | KYC_PENDING | COMPLETE
+
+  gracePeriodStartedAt  DateTime?
+  triggeredAt           DateTime?
+  completedAt           DateTime?
+  sarahNotifiedAt       DateTime? // trusted contact welfare check
+
+  txid                  String?   // Final broadcast txid
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+}
+
+model Heir {
+  id                    String    @id @default(uuid())
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id])
+
+  name                  String
+  email                 String
+  phone                 String?
+  relationship          String    // e.g. "daughter", "spouse"
+
+  // PGP public key registered at onboarding
+  pgpPublicKey          String?
+
+  // KYC
+  kycStatus             String    @default("PENDING")
+  kycVerifiedAt         DateTime?
+  kycProvider           String?   // e.g. "SMILE_IDENTITY" | "SMILE_IDENTITY"
+
+  // Claim
+  claimStatus           String    @default("PENDING") // PENDING | INITIATED | COMPLETE
+  claimInitiatedAt      DateTime?
+  claimCompletedAt      DateTime?
+  newWalletAddress      String?   // Heir's destination wallet
+
+  createdAt             DateTime  @default(now())
+}
+
+model TrustedContact {
+  id                    String    @id @default(uuid())
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id])
+  name                  String
+  email                 String
+  phone                 String?
+  notifiedAt            DateTime?
+}
+
+model Notification {
+  id                    String    @id @default(uuid())
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id])
+  channel               String    // PUSH | SMS | EMAIL
+  template              String
+  status                String    @default("PENDING") // PENDING | SENT | FAILED
+  sentAt                DateTime?
+  createdAt             DateTime  @default(now())
+}

@@ -1,4 +1,6 @@
 const express = require('express');
+const switchRoutes = require('./api/routes/switch');
+const vaultAddressRoutes = require('./api/routes/vault-address');
 const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
@@ -16,15 +18,15 @@ app.use(express.json());
 
 // Basic routes
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
+  res.json({
+    status: 'ok',
     message: 'Custos API is running',
     timestamp: new Date().toISOString()
   });
 });
 
 app.get('/api', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'Custos Bitcoin Inheritance & Security Platform API',
     version: '0.1.0',
     endpoints: [
@@ -39,14 +41,14 @@ app.get('/api', (req, res) => {
 
 // Mock auth routes (without database)
 app.post('/api/auth/register', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'User registration endpoint (mock)',
     status: 'success'
   });
 });
 
 app.post('/api/auth/login', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'User login endpoint (mock)',
     token: 'mock-jwt-token',
     status: 'success'
@@ -55,21 +57,24 @@ app.post('/api/auth/login', (req, res) => {
 
 // Mock vault routes
 app.get('/api/vault/status', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'Vault status endpoint (mock)',
     vaultType: 'MULTISIG_2OF3',
     status: 'ACTIVE',
     keys: {
       user: 'configured',
-      webApp: 'configured', 
+      webApp: 'configured',
       custos: 'secured-in-hsm'
     }
   });
 });
 
 // Mock switch routes
+app.use('/api/switch', switchRoutes);
+app.use('/api/vault', vaultAddressRoutes);
+
 app.get('/api/switch/status', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'Dead Man Switch status (mock)',
     state: 'ACTIVE',
     nextCheckinDue: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
@@ -77,7 +82,7 @@ app.get('/api/switch/status', (req, res) => {
 });
 
 app.post('/api/switch/checkin', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'Check-in recorded (mock)',
     status: 'checked_in',
     nextDue: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()

@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import AppHeader from '../../components/AppHeader'
+import AppFooter from '../../components/AppFooter'
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('general')
@@ -46,49 +48,59 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
-      <div className="max-w-4xl mx-auto px-6 sm:px-10 py-20">
-        <h1 className="text-3xl sm:text-4xl font-medium text-yellow-500 tracking-tight mb-8">Settings</h1>
+    <div style={{ background: '#030303', minHeight: '100vh', fontFamily: "'DM Sans', sans-serif", color: '#fff' }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        ::selection { background: #eab30833; }
+        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #0a0a0a; } ::-webkit-scrollbar-thumb { background: #2a2a2a; }
+        .tab-button { color: #444; font-size: 13px; font-weight: 400; text-decoration: none; letter-spacing: 0.02em; transition: color 0.15s; padding: 6px 0; }
+        .tab-button:hover, .tab-button.active { color: #eab308; }
+        .tab-button.active { border-bottom: 1px solid #eab308; }
+        .btn-gold { background: #eab308; color: #000; border: none; padding: 10px 24px; font-size: 13px; font-weight: 500; border-radius: 4px; cursor: pointer; letter-spacing: 0.04em; font-family: inherit; transition: background 0.15s, transform 0.1s; }
+        .btn-gold:hover { background: #f59e0b; }
+        .btn-gold:active { transform: scale(0.98); }
+        .card { background: '#0a0a0a'; border: '0.5px solid #1a1a1a'; border-radius: 8px; }
+        .input-field { background: '#080808'; border: '0.5px solid #2a2a2a'; border-radius: 4px; color: '#fff'; font-family: inherit; font-size: 13px; padding: 9px 14px; outline: none; width: 100%; transition: border-color 0.15s; }
+        .input-field:focus { border-color: #eab30855; }
+        .toggle-btn { position: relative; display: inline-flex; height: 24px; width: 44px; align-items: center; border-radius: 12px; transition: background-color 0.2s; }
+        .toggle-btn.active { background: #eab308; }
+        .toggle-btn:not(.active) { background: #2a2a2a; }
+        .toggle-thumb { position: absolute; display: inline-block; height: 16px; width: 16px; border-radius: 50%; background: white; transition: transform 0.2s; }
+        .toggle-btn.active .toggle-thumb { transform: translateX(20px); }
+        .toggle-btn:not(.active) .toggle-thumb { transform: translateX(4px); }
+      `}</style>
+
+      <AppHeader activePath="/settings" />
+
+      <main style={{ maxWidth: 1080, margin: '0 auto', padding: '48px 40px 80px' }}>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '36px', fontWeight: '500', color: '#fff', letterSpacing: '-0.01em', lineHeight: '1.1', marginBottom: '40px' }}>
+          Settings
+        </h1>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-8 mb-8 border-b border-neutral-800">
-          <button 
+        <div style={{ display: 'flex', gap: '32px', marginBottom: '32px', borderBottom: '0.5px solid #141414' }}>
+          <button
             onClick={() => setActiveTab('general')}
-            className={`pb-3 border-b-2 font-medium transition-colors ${
-              activeTab === 'general' 
-                ? 'border-yellow-500 text-yellow-500' 
-                : 'text-neutral-400 hover:text-white'
-            }`}
+            className={`tab-button ${activeTab === 'general' ? 'active' : ''}`}
           >
             General
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('security')}
-            className={`pb-3 font-medium transition-colors ${
-              activeTab === 'security' 
-                ? 'border-yellow-500 text-yellow-500' 
-                : 'text-neutral-400 hover:text-white'
-            }`}
+            className={`tab-button ${activeTab === 'security' ? 'active' : ''}`}
           >
             Security
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('notifications')}
-            className={`pb-3 font-medium transition-colors ${
-              activeTab === 'notifications' 
-                ? 'border-yellow-500 text-yellow-500' 
-                : 'text-neutral-400 hover:text-white'
-            }`}
+            className={`tab-button ${activeTab === 'notifications' ? 'active' : ''}`}
           >
             Notifications
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('account')}
-            className={`pb-3 font-medium transition-colors ${
-              activeTab === 'account' 
-                ? 'border-yellow-500 text-yellow-500' 
-                : 'text-neutral-400 hover:text-white'
-            }`}
+            className={`tab-button ${activeTab === 'account' ? 'active' : ''}`}
           >
             Account
           </button>
@@ -96,19 +108,21 @@ export default function SettingsPage() {
 
         {/* General Settings */}
         {activeTab === 'general' && (
-          <div className="space-y-8">
-            <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950">
-              <h2 className="text-xl font-medium text-yellow-500 tracking-tight mb-6">General Preferences</h2>
-              
-              <div className="space-y-6">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            <div className="card" style={{ padding: '32px' }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: '500', color: '#eab308', marginBottom: '24px' }}>
+                General Preferences
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Theme
                   </label>
                   <select
                     value={preferences.theme}
                     onChange={(e) => handlePreferenceChange('theme', e.target.value)}
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                   >
                     <option value="dark">Dark</option>
                     <option value="light">Light</option>
@@ -117,13 +131,13 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Language
                   </label>
                   <select
                     value={preferences.language}
                     onChange={(e) => handlePreferenceChange('language', e.target.value)}
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                   >
                     <option value="en">English</option>
                     <option value="es">Español</option>
@@ -133,13 +147,13 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Default Currency
                   </label>
                   <select
                     value={preferences.currency}
                     onChange={(e) => handlePreferenceChange('currency', e.target.value)}
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                   >
                     <option value="BTC">Bitcoin (BTC)</option>
                     <option value="USD">US Dollar (USD)</option>
@@ -149,13 +163,13 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Check-in Frequency
                   </label>
                   <select
                     value={preferences.checkInFrequency}
                     onChange={(e) => handlePreferenceChange('checkInFrequency', e.target.value)}
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -170,57 +184,47 @@ export default function SettingsPage() {
 
         {/* Security Settings */}
         {activeTab === 'security' && (
-          <div className="space-y-8">
-            <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950">
-              <h2 className="text-xl font-medium text-yellow-500 tracking-tight mb-6">Security</h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            <div className="card" style={{ padding: '32px' }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: '500', color: '#eab308', marginBottom: '24px' }}>
+                Security
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 className="text-white font-medium">Two-Factor Authentication</h3>
-                    <p className="text-neutral-500 text-sm">Add an extra layer of security to your account</p>
+                    <h3 style={{ color: '#fff', fontWeight: '500', fontSize: '14px' }}>Two-Factor Authentication</h3>
+                    <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>Add an extra layer of security to your account</p>
                   </div>
                   <button
                     onClick={() => handleSecurityChange('twoFactorAuth', !security.twoFactorAuth)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      security.twoFactorAuth ? 'bg-yellow-500' : 'bg-neutral-700'
-                    }`}
+                    className={`toggle-btn ${security.twoFactorAuth ? 'active' : ''}`}
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        security.twoFactorAuth ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
+                    <span className="toggle-thumb" />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 className="text-white font-medium">Biometric Authentication</h3>
-                    <p className="text-neutral-500 text-sm">Use fingerprint or face recognition</p>
+                    <h3 style={{ color: '#fff', fontWeight: '500', fontSize: '14px' }}>Biometric Authentication</h3>
+                    <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>Use fingerprint or face recognition</p>
                   </div>
                   <button
                     onClick={() => handleSecurityChange('biometricAuth', !security.biometricAuth)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      security.biometricAuth ? 'bg-yellow-500' : 'bg-neutral-700'
-                    }`}
+                    className={`toggle-btn ${security.biometricAuth ? 'active' : ''}`}
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        security.biometricAuth ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
+                    <span className="toggle-thumb" />
                   </button>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Session Timeout (minutes)
                   </label>
                   <select
                     value={security.sessionTimeout}
                     onChange={(e) => handleSecurityChange('sessionTimeout', e.target.value)}
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                   >
                     <option value="15">15 minutes</option>
                     <option value="30">30 minutes</option>
@@ -235,103 +239,75 @@ export default function SettingsPage() {
 
         {/* Notification Settings */}
         {activeTab === 'notifications' && (
-          <div className="space-y-8">
-            <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950">
-              <h2 className="text-xl font-medium text-yellow-500 tracking-tight mb-6">Notifications</h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            <div className="card" style={{ padding: '32px' }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: '500', color: '#eab308', marginBottom: '24px' }}>
+                Notifications
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 className="text-white font-medium">Email Notifications</h3>
-                    <p className="text-neutral-500 text-sm">Receive updates via email</p>
+                    <h3 style={{ color: '#fff', fontWeight: '500', fontSize: '14px' }}>Email Notifications</h3>
+                    <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>Receive updates via email</p>
                   </div>
                   <button
                     onClick={() => handleNotificationChange('email', !notifications.email)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      notifications.email ? 'bg-yellow-500' : 'bg-neutral-700'
-                    }`}
+                    className={`toggle-btn ${notifications.email ? 'active' : ''}`}
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        notifications.email ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
+                    <span className="toggle-thumb" />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 className="text-white font-medium">SMS Notifications</h3>
-                    <p className="text-neutral-500 text-sm">Receive critical alerts via SMS</p>
+                    <h3 style={{ color: '#fff', fontWeight: '500', fontSize: '14px' }}>SMS Notifications</h3>
+                    <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>Receive critical alerts via SMS</p>
                   </div>
                   <button
                     onClick={() => handleNotificationChange('sms', !notifications.sms)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      notifications.sms ? 'bg-yellow-500' : 'bg-neutral-700'
-                    }`}
+                    className={`toggle-btn ${notifications.sms ? 'active' : ''}`}
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        notifications.sms ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
+                    <span className="toggle-thumb" />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 className="text-white font-medium">Push Notifications</h3>
-                    <p className="text-neutral-500 text-sm">Receive browser push notifications</p>
+                    <h3 style={{ color: '#fff', fontWeight: '500', fontSize: '14px' }}>Push Notifications</h3>
+                    <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>Receive browser push notifications</p>
                   </div>
                   <button
                     onClick={() => handleNotificationChange('push', !notifications.push)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      notifications.push ? 'bg-yellow-500' : 'bg-neutral-700'
-                    }`}
+                    className={`toggle-btn ${notifications.push ? 'active' : ''}`}
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        notifications.push ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
+                    <span className="toggle-thumb" />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 className="text-white font-medium">Check-in Reminders</h3>
-                    <p className="text-neutral-500 text-sm">Remind me to check in for Dead Man's Switch</p>
+                    <h3 style={{ color: '#fff', fontWeight: '500', fontSize: '14px' }}>Check-in Reminders</h3>
+                    <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>Remind me to check in for Dead Man's Switch</p>
                   </div>
                   <button
                     onClick={() => handleNotificationChange('checkInReminders', !notifications.checkInReminders)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      notifications.checkInReminders ? 'bg-yellow-500' : 'bg-neutral-700'
-                    }`}
+                    className={`toggle-btn ${notifications.checkInReminders ? 'active' : ''}`}
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        notifications.checkInReminders ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
+                    <span className="toggle-thumb" />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 className="text-white font-medium">Heir Notifications</h3>
-                    <p className="text-neutral-500 text-sm">Notify me when heirs take actions</p>
+                    <h3 style={{ color: '#fff', fontWeight: '500', fontSize: '14px' }}>Heir Notifications</h3>
+                    <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>Notify me when heirs take actions</p>
                   </div>
                   <button
                     onClick={() => handleNotificationChange('heirNotifications', !notifications.heirNotifications)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      notifications.heirNotifications ? 'bg-yellow-500' : 'bg-neutral-700'
-                    }`}
+                    className={`toggle-btn ${notifications.heirNotifications ? 'active' : ''}`}
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        notifications.heirNotifications ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
+                    <span className="toggle-thumb" />
                   </button>
                 </div>
               </div>
@@ -341,49 +317,51 @@ export default function SettingsPage() {
 
         {/* Account Settings */}
         {activeTab === 'account' && (
-          <div className="space-y-8">
-            <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950">
-              <h2 className="text-xl font-medium text-yellow-500 tracking-tight mb-6">Account Settings</h2>
-              
-              <div className="space-y-6">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            <div className="card" style={{ padding: '32px' }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: '500', color: '#eab308', marginBottom: '24px' }}>
+                Account Settings
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Email Address
                   </label>
                   <input
                     type="email"
                     defaultValue="user@example.com"
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                     readOnly
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Username
                   </label>
                   <input
                     type="text"
                     defaultValue="custos_user"
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                     readOnly
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  <label style={{ display: 'block', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#444', marginBottom: '8px' }}>
                     Account Created
                   </label>
                   <input
                     type="text"
                     defaultValue="January 15, 2024"
-                    className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                    className="input-field"
                     readOnly
                   />
                 </div>
 
-                <div className="pt-4 border-t border-neutral-700">
-                  <button className="text-red-500 hover:text-red-400 text-sm font-medium transition-colors">
+                <div style={{ paddingTop: '16px', borderTop: '0.5px solid #141414' }}>
+                  <button style={{ color: '#ef4444', fontSize: '13px', fontWeight: '500', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', transition: 'color 0.15s' }}>
                     Delete Account
                   </button>
                 </div>
@@ -393,18 +371,20 @@ export default function SettingsPage() {
         )}
 
         {/* Save Button */}
-        <div className="flex justify-end space-x-4 mt-8">
-          <button className="px-6 py-2 border border-neutral-700 text-neutral-300 rounded-md hover:bg-neutral-800 transition-colors">
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '16px', marginTop: '32px' }}>
+          <button style={{ padding: '12px 24px', border: '1px solid #1a1a1a', color: '#444', borderRadius: '4px', cursor: 'pointer', fontFamily: 'inherit', fontSize: '13px', transition: 'background 0.15s' }}>
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="px-6 py-2 bg-yellow-500 text-black rounded-md hover:bg-yellow-400 transition-colors font-medium"
+            className="btn-gold"
           >
             Save Changes
           </button>
         </div>
-      </div>
+      </main>
+
+      <AppFooter />
     </div>
   )
 }

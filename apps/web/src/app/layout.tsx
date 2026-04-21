@@ -1,5 +1,3 @@
-import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
 import './globals.css'
 
 export const metadata = {
@@ -14,12 +12,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="bg-black text-white">
-      <body className="min-h-screen bg-black flex flex-col">
-        <Navigation />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+      <body className="min-h-screen bg-black">
+        {children}
       </body>
     </html>
   )

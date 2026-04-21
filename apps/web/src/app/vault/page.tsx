@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import AppHeader from '../../components/AppHeader'
+import AppFooter from '../../components/AppFooter'
 
 export default function Vault() {
   const [vaultStatus, setVaultStatus] = useState(null)
@@ -62,19 +64,36 @@ export default function Vault() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-yellow-500 text-xl">Loading vault...</div>
+      <div style={{ background: '#030303', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ color: '#eab308', fontSize: '20px' }}>Loading vault...</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20">
-        <h1 className="text-3xl sm:text-4xl font-medium text-yellow-500 tracking-tight mb-8">Vault Management</h1>
+    <div style={{ background: '#030303', minHeight: '100vh', fontFamily: "'DM Sans', sans-serif", color: '#fff' }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        ::selection { background: #eab30833; }
+        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #0a0a0a; } ::-webkit-scrollbar-thumb { background: #2a2a2a; }
+        .btn-gold { background: #eab308; color: #000; border: none; padding: 10px 24px; font-size: 13px; font-weight: 500; border-radius: 4px; cursor: pointer; letter-spacing: 0.04em; font-family: inherit; transition: background 0.15s, transform 0.1s; }
+        .btn-gold:hover { background: #f59e0b; }
+        .btn-gold:active { transform: scale(0.98); }
+        .btn-outline { background: transparent; color: #eab308; border: 1px solid #eab30833; padding: 10px 24px; font-size: 13px; font-weight: 400; border-radius: 4px; cursor: pointer; letter-spacing: 0.04em; font-family: inherit; transition: all 0.15s; }
+        .btn-outline:hover { border-color: #eab308; background: #eab3080a; }
+        .card { background: '#0a0a0a'; border: '0.5px solid #1a1a1a'; border-radius: 8px; }
+      `}</style>
+
+      <AppHeader activePath="/vault" />
+
+      <main style={{ maxWidth: 1080, margin: '0 auto', padding: '48px 40px 80px' }}>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '36px', fontWeight: '500', color: '#fff', letterSpacing: '-0.01em', lineHeight: '1.1', marginBottom: '40px' }}>
+          Vault Management
+        </h1>
 
         {/* Vault Overview */}
-        <div className="border border-neutral-800 rounded-lg p-8 bg-neutral-950 mb-8">
+        <div className="card" style={{ padding: '32px', marginBottom: '32px' }}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-medium text-yellow-500 tracking-tight">2-of-3 Multisig Vault</h2>
             <span className={`px-4 py-2 rounded-full text-sm font-medium ${vaultStatus?.status === 'ACTIVE'
@@ -177,7 +196,7 @@ export default function Vault() {
             <p className="text-neutral-500 text-sm mt-2">Your vault transaction history will appear here</p>
           </div>
         </div>
-      </div>
     </div>
+    </div >
   )
 }
